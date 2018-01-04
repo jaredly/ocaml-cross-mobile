@@ -1,0 +1,10 @@
+*.tgz
+pins
+android-armv7.tgz
+android-full-armv7
+android-full-x86
+android-x86.tgz
+ios-arm64.tgz
+ios-full-arm64
+ios-full-x86_64
+ios-x86_64.tgz

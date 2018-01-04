@@ -1,0 +1,59 @@
+diff --git a/utils/config.mlp b/utils/config.mlp
+index de4088c..3a8bd06 100644
+--- a/utils/config.mlp
++++ b/utils/config.mlp
+@@ -38,15 +38,20 @@ let standard_library =
+   with Not_found ->
+     standard_library_default
+
+-let standard_runtime = "%%BYTERUN%%"
++let get_with_default name value =
++  try
++    Sys.getenv name
++  with Not_found -> value
++
++let standard_runtime = get_with_default "CAML_BYTERUN" "%%BYTERUN%%"
+ let ccomp_type = "%%CCOMPTYPE%%"
+-let bytecomp_c_compiler = "%%BYTECC%%"
++let bytecomp_c_compiler = get_with_default "CAML_BYTECC" "%%BYTECC%%"
+ let bytecomp_c_libraries = "%%BYTECCLIBS%%"
+-let native_c_compiler = "%%NATIVECC%%"
++let native_c_compiler = get_with_default "CAML_NATIVECC" "%%NATIVECC%%"
+ let native_c_libraries = "%%NATIVECCLIBS%%"
+-let native_pack_linker = "%%PACKLD%%"
+-let ranlib = "%%RANLIBCMD%%"
+-let ar = "%%ARCMD%%"
++let native_pack_linker = get_with_default "CAML_PACKLD" "%%PACKLD%%"
++let ranlib = get_with_default "CAML_RANLIB" "%%RANLIBCMD%%"
++let ar = get_with_default "CAML_AR" "%%ARCMD%%"
+ let cc_profile = "%%CC_PROFILE%%"
+ let mkdll, mkexe, mkmaindll =
+   (* @@DRA Cygwin - but only if shared libraries are enabled, which we
+@@ -65,7 +70,7 @@ let mkdll, mkexe, mkmaindll =
+     with Not_found ->
+       "%%MKDLL%%", "%%MKEXE%%", "%%MKMAINDLL%%"
+   else
+-    "%%MKDLL%%", "%%MKEXE%%", "%%MKMAINDLL%%"
++    get_with_default "CAML_MKDLL" "%%MKDLL%%", get_with_default "CAML_MKEXE" "%%MKEXE%%", get_with_default "CAML_MKMAINDLL" "%%MKMAINDLL%%"
+
+ let flambda = %%FLAMBDA%%
+ let safe_string = %%SAFE_STRING%%
+@@ -107,7 +112,7 @@ let architecture = "%%ARCH%%"
+ let model = "%%MODEL%%"
+ let system = "%%SYSTEM%%"
+
+-let asm = "%%ASM%%"
++let asm = get_with_default "CAML_ASM" "%%ASM%%"
+ let asm_cfi_supported = %%ASM_CFI_SUPPORTED%%
+ let with_frame_pointers = %%WITH_FRAME_POINTERS%%
+ let spacetime = %%WITH_SPACETIME%%
+@@ -152,6 +157,9 @@ let print_config oc =
+   p "model" model;
+   p "system" system;
+   p "asm" asm;
++  p "mkdll" mkdll;
++  p "mkexe" mkexe;
++  p "mkmaindll" mkmaindll;
+   p_bool "asm_cfi_supported" asm_cfi_supported;
+   p_bool "with_frame_pointers" with_frame_pointers;
+   p "ext_obj" ext_obj;

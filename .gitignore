@@ -11,3 +11,6 @@ ios-x86_64.tgz
 .vscode
 artifacts
 android-ndk
+*.zip
+building/linux
+building/macos

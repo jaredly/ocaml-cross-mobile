@@ -8,3 +8,6 @@ ios-arm64.tgz
 ios-full-arm64
 ios-full-x86_64
 ios-x86_64.tgz
+.vscode
+artifacts
+android-ndk

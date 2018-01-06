@@ -46,8 +46,6 @@ fi
 opam repository remove android || echo "no android repo"
 opam repository add android git://github.com/yunxing/opam-cross-android
 
-export ANDROID_NDK=`pwd`/../android-ndk
-
 if [ ! -d ./android-full-armv7 ]; then
   echo "Building android armv7"
 
@@ -66,7 +64,6 @@ if [ ! -d ./android-full-armv7 ]; then
   opam source ocaml-android32 --pin
   (cd ocaml-android32.4.02.3 && patch -p1 < ../config_cross_402.patch)
 
-  ANDROID_NDK=`pwd`/../android-ndk \
   opam install -y ocaml-android32
 
   mv ~/.opam/4.02.3+32bit/android-sysroot android-full-armv7
@@ -94,7 +91,6 @@ if [ ! -d ./android-full-x86 ]; then
   opam source ocaml-android32 --pin
   (cd ocaml-android32.4.02.3 && patch -p1 < ../config_cross_402.patch)
 
-  ANDROID_NDK=`pwd`/../android-ndk \
   opam install -y ocaml-android32
 
   mv ~/.opam/4.02.3+32bit/android-sysroot android-full-x86

@@ -37,6 +37,9 @@ fi
 
 
 if [ ! -d ./android-full-armv7 ]; then
+  opam repository remove android
+  opam repository add android git://github.com/whitequark/opam-cross-android
+
   opam switch 4.04.0+32bit
   eval `opam config env`
 
@@ -58,6 +61,9 @@ if [ ! -d ./android-full-armv7 ]; then
 fi;
 
 if [ ! -d ./android-full-x86 ]; then
+  opam repository remove android
+  opam repository add android git://github.com/whitequark/opam-cross-android
+
   opam switch 4.04.0+32bit
   eval `opam config env`
 

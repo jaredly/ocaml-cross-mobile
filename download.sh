@@ -1,3 +1,4 @@
+#!/bin/bash
 
 if [[ `uname` == "Darwin" ]]; then
   function get_and_extract {

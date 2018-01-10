@@ -1,3 +1,4 @@
+#!/bin/bash
 
 if [[ `uname` == "Darwin" ]]; then
   wget --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r11c-darwin-x86_64.zip
